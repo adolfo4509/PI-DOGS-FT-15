@@ -1,7 +1,28 @@
 .App {
   text-align: center;
+  color: aliceblue;
+  
 }
+body{
+  background-image: url(./img/fondo.jpg);
+ background-size: cover;
+height: 100%;
 
+}
+@media(min-width:768px){
+  body{
+  background-image: url(./img/fondo.jpg);
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+}}
+button{
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(17, 125, 219);
+border-style: hidden;
+border-radius: .3rem;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
