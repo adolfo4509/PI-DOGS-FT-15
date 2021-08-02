@@ -9,6 +9,11 @@ function Buscador() {
           <label className="label" htmlFor="title">
             Dogs
           </label>
+          <input
+            className="input-search"
+            type="text"
+            placeholder="Name Dogs"
+          ></input>
         </div>
         <button className="search" type="submit">
           Search
