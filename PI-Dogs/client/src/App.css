@@ -1,28 +1,53 @@
-.App {
+/*Generales*/
+h1 {
+  font-family: "Lato", sans-serif;
+  color: aliceblue;
+}
+h2 {
+  font-family: "Lato", sans-serif;
   text-align: center;
   color: aliceblue;
-  
 }
-body{
-  background-image: url(./img/fondo.jpg);
- background-size: cover;
-height: 100%;
-
+.search {
+  display: flex;
 }
-@media(min-width:768px){
-  body{
-  background-image: url(./img/fondo.jpg);
-  position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
-}}
-button{
-  font-size: 1rem;
+.App {
+  display: flex;
+  justify-content: center;
+  color: aliceblue;
+}
+label {
+  margin-right: 0.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: rgb(17, 125, 219);
-border-style: hidden;
-border-radius: .3rem;
+  color: #61dafb;
 }
+.search {
+  margin: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: hidden;
+  border-radius: 0.2rem;
+  font-weight: 700;
+  color: rgb(122, 151, 151);
+}
+.search:hover {
+  background-color: aqua;
+  border-radius: 0.3rem;
+  border: hidden;
+}
+body {
+  background-image: url(./img/fondo.jpg);
+  background-size: cover;
+}
+@media (min-width: 768px) {
+  body {
+    background-image: url(./img/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,17 +61,15 @@ border-radius: .3rem;
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  padding: 0 2rem;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
 .App-link {
   color: #61dafb;
+  text-decoration: none;
 }
 
 @keyframes App-logo-spin {
