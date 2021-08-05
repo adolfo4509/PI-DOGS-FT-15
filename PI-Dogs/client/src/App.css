@@ -46,12 +46,16 @@ label {
 body {
   background-image: url(./img/fondo.jpg);
   background-size: cover;
+  height: 100vh;
+  width: 100%;
 }
 @media (min-width: 768px) {
   body {
     background-image: url(./img/fondo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
+    width: 100%;
   }
 }
 

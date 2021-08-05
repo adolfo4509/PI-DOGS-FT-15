@@ -5,9 +5,16 @@ require("dotenv").config();
 require("dotenv").config();
 const { API_KEY } = process.env;
 const router = Router();
+const { temperament } = require("../models/Temperament");
+const axios = require("axios");
+/*
+[ ] GET /temperament:
+Obtener todos los temperamentos posibles
+En una primera instancia deberán obtenerlos desde la API externa y guardarlos en su propia base de datos y luego ya utilizarlos desde allí
 
-router.get("/", (req, res) => {
-  res.send("Estoy desde el Get  de Temperament");
+*/
+router.get("/temperament", async (req, res) => {
+  res.send("Probando el get de temperament");
 });
 
 module.exports = router;
