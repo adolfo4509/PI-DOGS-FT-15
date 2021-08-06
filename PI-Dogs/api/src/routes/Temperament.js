@@ -5,8 +5,17 @@ require("dotenv").config();
 require("dotenv").config();
 const { API_KEY } = process.env;
 const router = Router();
-const { temperament } = require("../models/Temperament");
 const axios = require("axios");
+
+const getAppInfo = async () => {
+  const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+  const apiInfo = await apiUrl.data.map((e) => {
+    return {
+      temperament: e.temperament,
+    };
+  });
+  return apiInfo;
+};
 /*
 [ ] GET /temperament:
 Obtener todos los temperamentos posibles
@@ -14,9 +23,9 @@ En una primera instancia deberán obtenerlos desde la API externa y guardarlos e
 
 */
 router.get("/temperament", async (req, res) => {
-  s;
-
-  res.send("Probando el get de temperament");
+  const temperamentAll = await getAppInfo();
+  console.log(temperamentAll);
+  res.status(200).json(temperamentAll);
 });
 
 module.exports = router;

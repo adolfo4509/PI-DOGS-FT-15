@@ -1,6 +1,6 @@
 const Dogs_ = require("./Dogs");
 const Temperament_ = require("./Temperament");
-
+const { getAppInfo } = require("./Dogs");
 const { Router } = require("express");
 
 require("dotenv").config();
