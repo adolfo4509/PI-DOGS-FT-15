@@ -14,6 +14,8 @@ En una primera instancia deberán obtenerlos desde la API externa y guardarlos e
 
 */
 router.get("/temperament", async (req, res) => {
+  s;
+
   res.send("Probando el get de temperament");
 });
 
