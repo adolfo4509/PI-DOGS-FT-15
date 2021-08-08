@@ -34,7 +34,7 @@ let capsEntries = entries.map((entry) => [
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
-//console.log("EStoy probando esto---->", capsEntries);
+console.log("EStoy probando esto---->", capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 const { Dog, Temperament } = sequelize.models;
@@ -47,4 +47,6 @@ Temperament.belongsToMany(Dog, { through: "Dog_Temperament" });
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
+  Dog,
+  Temperament,
 };

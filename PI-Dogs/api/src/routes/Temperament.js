@@ -24,8 +24,9 @@ En una primera instancia deberán obtenerlos desde la API externa y guardarlos e
 */
 router.get("/temperament", async (req, res) => {
   const temperamentAll = await getAppInfo();
-  console.log(temperamentAll);
-  res.status(200).json(temperamentAll);
+  const temperamentSave = await temperamentAll.map((e) => e.temperament);
+  console.log("LISTADO DE TEMPERAMENTOS", temperamentSave);
+  res.status(200).json(temperamentSave);
 });
 
 module.exports = router;

@@ -1,8 +1,6 @@
 const { default: axios } = require("axios");
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { Dogs, Temperament } = require("../db.js");
-const temperament = require("../models/Temperament.js");
 require("dotenv").config();
 const { API_KEY } = process.env;
 require("dotenv").config();
@@ -20,25 +18,14 @@ const getAppInfo = async () => {
   });
   return apiInfo;
 };
-// const getDbInfo = async () => {
-//   return await temperament.findAll({
-//     include: {
-//       model: Temperament,
-//       attributes: ["name"],
-//       trougth: { attribute: [] },
-//     },
-//   });
-// };
-// const getAll = async () => {
-//   const apiInfo = await getAppInfo();
-//   const dbInfo = await getDbInfo();
-//   const infoTotal = apiInfo.concat(dbInfo);
-//   return infoTotal;
-// };
 
 /*GET /dogs:
 Obtener un listado de las razas de perro
 Debe devolver solo los datos necesarios para la ruta principal
+ GET /dogs?name="...":
+Obtener un listado de las razas de perro que contengan la palabra ingresada como query parameter
+Si no existe ninguna raza de perro mostrar un mensaje adecuado
+
 */
 router.get("/dogs", async (req, res) => {
   const name = req.query.name;
@@ -54,12 +41,6 @@ router.get("/dogs", async (req, res) => {
     res.status(200).send(dogsTotal);
   }
 });
-
-/*
-[ ] GET /dogs?name="...":
-Obtener un listado de las razas de perro que contengan la palabra ingresada como query parameter
-Si no existe ninguna raza de perro mostrar un mensaje adecuado
-*/
 
 /*
 [ ] GET /dogs/{idRaza}:
