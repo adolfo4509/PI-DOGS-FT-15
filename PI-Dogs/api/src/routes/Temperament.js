@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { Dogs, Temperament } = require("../db.js");
-require("dotenv").config();
+const { Dog, Temperament } = require("../db.js");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const router = Router();
@@ -25,8 +24,20 @@ En una primera instancia deberán obtenerlos desde la API externa y guardarlos e
 router.get("/temperament", async (req, res) => {
   const temperamentAll = await getAppInfo();
   const temperamentSave = await temperamentAll.map((e) => e.temperament);
-  console.log("LISTADO DE TEMPERAMENTOS", temperamentSave);
-  res.status(200).json(temperamentSave);
+  const filteredDogs = [];
+  const eliminaDuplicados = (temperamentSave) => {
+    temperamentSave.forEach((dog) => {
+      const foundDog = filteredDogs.find(
+        (filteredWord) => filteredWord === dog
+      );
+      if (!foundDog) {
+        filteredDogs.push(dog);
+      }
+    });
+  };
+  eliminaDuplicados(temperamentSave);
+  console.log("LISTADO DE TEMPERAMENTOS", filteredDogs);
+  res.status(200).json(filteredDogs);
 });
 
 module.exports = router;
