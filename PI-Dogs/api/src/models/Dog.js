@@ -28,8 +28,10 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.ENUM({
+        values: ["value", "another value"],
+      }),
+      allowNull: false,
     },
     createInDb: {
       type: DataTypes.BOOLEAN,
