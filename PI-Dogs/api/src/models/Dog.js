@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     height: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("imperial", "metric"),
       allowNull: false,
     },
     image: {

@@ -4,7 +4,6 @@ const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Dog, Temperament } = require("../db.js");
-const { UUIDV4 } = require("sequelize");
 
 const router = Router();
 
@@ -70,8 +69,22 @@ router.get("/dogs", async (req, res) => {
 Obtener el detalle de una raza de perro en particular
 Debe traer solo los datos pedidos en la ruta de detalle de raza de perro
 Incluir los temperamentos asociados
-*/
 
+[ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
+[ ] Altura
+[ ] Peso
+[ ] Años de vida
+*/
+router.get("/dogs/:id", async (req, res) => {
+  const { id } = req.params;
+  const dogDetail = await getAllInfo();
+  if (id) {
+    let dogId = await dogDetail.filter((e) => e.id === id.toString());
+    dogId.length
+      ? res.status(200).send(dogId)
+      : res.status(404).send("No esta el Dog, lo sentimos");
+  }
+});
 /*
 [ ] POST /dog:
 Recibe los datos recolectados desde el formulario controlado de la ruta de creación de raza de perro por body
@@ -84,7 +97,7 @@ Crea una raza de perro en la base de datos
 */
 router.post("/dog", async (req, res) => {
   // try {
-  const { name, height, weight, life_span, temperament, createdInDb } =
+  const { name, height, weight, life_span, temperament, image, createdInDb } =
     req.body;
 
   const dogsCreate = await Dog.create({
@@ -93,6 +106,7 @@ router.post("/dog", async (req, res) => {
     height,
     weight,
     life_span,
+    image,
     createdInDb,
   });
 
