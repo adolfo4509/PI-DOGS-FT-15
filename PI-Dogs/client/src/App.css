@@ -1,6 +1,7 @@
 /*Generales*/
 h1 {
   font-family: "Lato", sans-serif;
+  font-weight: 600;
   color: aliceblue;
 }
 h2 {
@@ -32,6 +33,7 @@ label {
   font-family: "Lato", sans-serif;
   margin: 0.8rem;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   border: hidden;
   border-radius: 0.2rem;

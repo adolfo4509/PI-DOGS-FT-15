@@ -16,7 +16,7 @@ function Nav() {
           alt="Logo-Henry"
         />
       </div>
-      <h1>Henry Dogs</h1>
+      <h1>Henry Dog breeds</h1>
       <nav>
         <Link className="App-link" exact to="/">
           <h3>Home</h3>

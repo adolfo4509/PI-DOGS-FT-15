@@ -7,7 +7,7 @@ function Buscador() {
       <form className="App">
         <div>
           <label className="label" htmlFor="title">
-            Dogs
+            breeds
           </label>
           <input
             className="input-search"
