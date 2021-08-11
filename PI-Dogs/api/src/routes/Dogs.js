@@ -4,11 +4,14 @@ const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Dog, Temperament } = require("../db.js");
+const { UUIDV4 } = require("sequelize");
 
 const router = Router();
 
 const getAppInfo = async () => {
-  const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds`);
+  const apiUrl = await axios.get(
+    `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
+  );
   const apiInfo = await apiUrl.data.map((e) => {
     return {
       id: e.id,
@@ -26,7 +29,7 @@ const getDbInfo = async () => {
   return await Dog.findAll({
     include: {
       model: Temperament,
-      attributes: ["name"],
+      attributes: ["temperament"],
       through: {
         attributes: [],
       },
@@ -79,15 +82,29 @@ Crea una raza de perro en la base de datos
          Peso 
          Años de vida 
 */
-router.post("/dog", (req, res) => {
-  const { name, heigth, weight, life_span, temperament } = req.body;
-  const dogsCreate = {
-    name: name,
-    heigth: heigth,
-    weight: weight,
-    life_span: life_span,
-  };
+router.post("/dog", async (req, res) => {
+  // try {
+  const { name, height, weight, life_span, temperament, createdInDb } =
+    req.body;
 
-  res.json(dogsCreate);
+  const dogsCreate = await Dog.create({
+    id: uuidv4(),
+    name,
+    height,
+    weight,
+    life_span,
+    createdInDb,
+  });
+
+  let temperamentDb = await Temperament.findAll({
+    where: { temperament: temperament },
+  });
+
+  dogsCreate.addTemperament(temperamentDb);
+  res.send("Dog creado con exito");
+
+  //   } catch {
+  //     res.status(404).send("verifique los datos");
+  //   }
 });
 module.exports = router;
