@@ -17,11 +17,14 @@ function Nav() {
         />
       </div>
       <h1>Henry Dog breeds</h1>
-      <nav>
+      <div className="navBar">
         <Link className="App-link" exact to="/">
           <h3>Home</h3>
         </Link>
-      </nav>
+        <Link className="App-link" to="/dogs">
+          <h3>Create Breads</h3>
+        </Link>
+      </div>
     </header>
   );
 }

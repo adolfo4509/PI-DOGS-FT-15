@@ -1,15 +1,37 @@
 /*Generales*/
+:root {
+  --fuenteHeading: "Lato", sans-serif;
+  --fuenteParrafos: "Open Sans", sans-serif;
+  --primario: #784d3c;
+  --claro: #e1e1e1;
+  --blanco: #ffffff;
+  --negro: #000000;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*:before,
+*::after {
+  box-sizing: inherit;
+}
+
 h1 {
-  font-family: "Lato", sans-serif;
+  font-family: var(--fuenteHeading);
   font-weight: 600;
   color: aliceblue;
 }
 h2 {
   font-family: "Lato", sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
   text-align: center;
-  color: aliceblue;
+  color: rgb(41, 130, 207);
 }
-.search {
+.search1 {
   display: flex;
 }
 .App {
@@ -30,6 +52,7 @@ label {
   font-size: 0.8rem;
 }
 .search {
+  display: flex;
   font-family: "Lato", sans-serif;
   margin: 0.8rem;
   font-size: 0.9rem;
@@ -45,19 +68,25 @@ label {
   border-radius: 0.3rem;
   border: hidden;
 }
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
 body {
-  background-image: url(./img/fondo.jpg);
+  background-image: url(./img/boxers.png);
   background-size: cover;
   height: 100vh;
-  width: 100%;
+  max-width: 100%;
+  background-repeat: no-repeat;
 }
 @media (min-width: 768px) {
   body {
-    background-image: url(./img/fondo.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url(./img/boxers.png);
+    background-attachment: fixed;
+    background-size: auto;
     height: 100vh;
-    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -81,7 +110,7 @@ body {
 }
 
 .App-link {
-  color: #61dafb;
+  color: #fb61cd;
   text-decoration: none;
 }
 

@@ -1,11 +1,13 @@
+import axios from "axios";
+
 export const GET_DOGS = "GET_DOGS";
 
-export function getDogs(breeds) {
-  return function (dispatch) {
-    return fetch(" https://api.thedogapi.com/v1/breeds?api_key=${}" + breeds)
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch({ type: GET_DOGS, payload: json });
-      });
+export function getDogs() {
+  return async function (dispatch) {
+    var json = await axios.get(" http://localhost:3001/Dogs");
+    return dispatch({
+      type: "GET_DOGS",
+      payload: json.data,
+    });
   };
 }
