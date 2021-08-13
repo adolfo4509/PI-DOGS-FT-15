@@ -20,48 +20,80 @@ html {
 }
 
 h1 {
+  font-size: 3rem;
   font-family: var(--fuenteHeading);
   font-weight: 600;
-  color: aliceblue;
+  color: #fb61cd;
 }
-h2 {
+h2,
+h3 {
   font-family: "Lato", sans-serif;
   font-size: 2rem;
   font-weight: 500;
   text-align: center;
-  color: rgb(41, 130, 207);
+  color: #fb61cd;
 }
 .search1 {
   display: flex;
 }
+.filtrar {
+  padding-top: 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+.cargar {
+  margin-bottom: 1rem;
+}
+select {
+  margin-left: 2rem;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  align-content: space-between;
+}
 .App {
   display: flex;
   justify-content: center;
-  color: aliceblue;
+  color: #fb61cd;
 }
 label {
   margin-right: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #61dafb;
+  color: #fb61cd;
 }
 .input-search {
   font-family: "Lato", sans-serif;
   border-radius: 0.5rem;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 2rem;
+  color: #fb61cd;
+}
+:placeholder-shown {
+  color: #fb61cd;
 }
 .search {
   display: flex;
   font-family: "Lato", sans-serif;
-  margin: 0.8rem;
-  font-size: 0.9rem;
+  margin-left: 1rem;
+  font-size: 2rem;
   font-weight: 500;
   cursor: pointer;
   border: hidden;
   border-radius: 0.2rem;
   font-weight: 500;
-  color: rgb(122, 151, 151);
+  color: #fb61cd;
+}
+.razas {
+  padding: 1rem;
+  margin-left: 1rem;
+}
+.razas h3 {
+  font-size: 1.5rem;
+  color: #000000;
+  padding-left: 2rem;
 }
 .search:hover {
   background-color: aqua;
@@ -89,7 +121,13 @@ body {
     max-width: 100%;
   }
 }
-
+.botonesnex_prev {
+  text-align: end;
+  padding-right: 3rem;
+}
+.botonnext {
+  margin-right: 1rem;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -110,6 +148,7 @@ body {
 }
 
 .App-link {
+  font-size: 2rem;
   color: #fb61cd;
   text-decoration: none;
 }

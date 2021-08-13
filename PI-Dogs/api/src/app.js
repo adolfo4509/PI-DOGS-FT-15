@@ -26,7 +26,7 @@ server.use((req, res, next) => {
 });
 server.use(express.json());
 server.use("/api", routes);
-
+server.use(morgan("dev"));
 // Error catching endware.
 server.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars

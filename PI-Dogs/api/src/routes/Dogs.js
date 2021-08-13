@@ -50,8 +50,9 @@ Si no existe ninguna raza de perro mostrar un mensaje adecuado
 
 */
 router.get("/dogs", async (req, res) => {
-  const name = req.query.name;
+  const { name } = req.query;
   const dogsTotal = await getAllInfo();
+
   if (name) {
     let dogName = await dogsTotal.filter((e) =>
       e.name.toLowerCase().includes(name.toLowerCase())
@@ -79,7 +80,7 @@ router.get("/dogs/:id", async (req, res) => {
   const { id } = req.params;
   const dogDetail = await getAllInfo();
   if (id) {
-    let dogId = await dogDetail.filter((e) => e.id === id.toString());
+    let dogId = await dogDetail.filter((e) => e.id == id.toString());
     dogId.length
       ? res.status(200).send(dogId)
       : res.status(404).send("No esta el Dog, lo sentimos");
@@ -95,30 +96,29 @@ Crea una raza de perro en la base de datos
          Peso 
          Años de vida 
 */
-router.post("/dog", async (req, res) => {
-  // try {
-  const { name, height, weight, life_span, temperament, image, createdInDb } =
-    req.body;
+router.post("/dogs", async (req, res) => {
+  try {
+    const { name, height, weight, life_span, temperament, image, createdInDb } =
+      req.body;
 
-  const dogsCreate = await Dog.create({
-    id: uuidv4(),
-    name,
-    height,
-    weight,
-    life_span,
-    image,
-    createdInDb,
-  });
+    const dogsCreate = await Dog.create({
+      id: uuidv4(),
+      name,
+      height,
+      weight,
+      life_span,
+      image,
+      createdInDb,
+    });
 
-  let temperamentDb = await Temperament.findAll({
-    where: { temperament: temperament },
-  });
+    let temperamentDb = await Temperament.findAll({
+      where: { temperament: temperament },
+    });
 
-  dogsCreate.addTemperament(temperamentDb);
-  res.send("Dog creado con exito");
-
-  //   } catch {
-  //     res.status(404).send("verifique los datos");
-  //   }
+    dogsCreate.addTemperament(temperamentDb);
+    res.send("Dog creado con exito");
+  } catch {
+    res.status(404).send("verifique los datos");
+  }
 });
 module.exports = router;

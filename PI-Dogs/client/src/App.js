@@ -1,21 +1,31 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import DogsCreate from "./Components/BreadsCreate/breadsCreate";
-import Buscador from "./Components/Buscador/search";
-import Cards from "./Components/Cards/cards";
+import Card from "./Components/Cards/card";
 import Home from "./Components/Home/home";
 import Loading from "./Components/Loading/loading";
 import Nav from "./Components/Nav/nav";
 
 function App() {
+  //Aqui creamos las Rutas
   return (
     <BrowserRouter>
       <div className="contenedor">
-        <Nav />
-        <Route exact path="/" component={Loading} />
-        <Route path="/dogs" component={DogsCreate} />
-        <Route path="/home" component={Home}></Route>
-        <Route path="/cards" component={Cards}></Route>
+        <switch>
+          <Nav />
+          <Route exact path="/">
+            <Loading />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/dogs">
+            <DogsCreate />
+          </Route>
+          <Route path="/card">
+            <Card />
+          </Route>
+        </switch>
       </div>
     </BrowserRouter>
   );
