@@ -1,8 +1,8 @@
 import axios from "axios";
-import { DOGS_BREADS_URL } from "../constantes/constants";
 
+import { DOGS_BREADS_URL, TEMPERAMENT_URL } from "../constantes/constants";
 export const GET_DOGS = "GET_DOGS";
-export const ORDER_ASCENDENT = "ORDER_ASCENDENT";
+export const FILTER_BY_VALUES = "FILTER_BY_VALUES";
 
 export function getDogs() {
   return function (dispatch) {
@@ -14,12 +14,13 @@ export function getDogs() {
     });
   };
 }
-export function orderDogsAsc() {
-  return async function (dispatch) {
-    var json = await axios.get(" http://localhost:3001/api/");
-    return dispatch({
-      type: "ORDER_ASCENDENT",
-      payload: json.data.short(),
+export function selectDogsTemp() {
+  return function (dispatch) {
+    return axios.get(TEMPERAMENT_URL).then((dogs) => {
+      dispatch({
+        type: FILTER_BY_VALUES,
+        payload: dogs.data,
+      });
     });
   };
 }

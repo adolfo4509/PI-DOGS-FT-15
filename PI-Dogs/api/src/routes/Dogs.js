@@ -97,28 +97,29 @@ Crea una raza de perro en la base de datos
          Años de vida 
 */
 router.post("/dogs", async (req, res) => {
-  try {
-    const { name, height, weight, life_span, temperament, image, createdInDb } =
-      req.body;
+  // try {
+  const { name, height, weight, life_span, temperament, image, createdInDb } =
+    req.body;
 
-    const dogsCreate = await Dog.create({
-      id: uuidv4(),
-      name,
-      height,
-      weight,
-      life_span,
-      image,
-      createdInDb,
-    });
+  const dogsCreate = await Dog.create({
+    id: uuidv4(),
+    name,
+    height,
+    weight,
+    life_span,
+    image,
+    createdInDb,
+  });
 
-    let temperamentDb = await Temperament.findAll({
-      where: { temperament: temperament },
-    });
+  let temperamentDb = await Temperament.findAll({
+    where: { temperament: temperament },
+  });
 
-    dogsCreate.addTemperament(temperamentDb);
-    res.send("Dog creado con exito");
-  } catch {
-    res.status(404).send("verifique los datos");
-  }
+  console.log("================>", temperamentDb);
+  dogsCreate.addTemperament(temperamentDb);
+  res.send("Dog creado con exito");
+  // } catch {
+  //   res.status(404).send("verifique los datos");
+  // }
 });
 module.exports = router;

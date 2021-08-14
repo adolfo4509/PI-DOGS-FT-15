@@ -23,7 +23,7 @@ h1 {
   font-size: 3rem;
   font-family: var(--fuenteHeading);
   font-weight: 600;
-  color: #fb61cd;
+  color: #110457;
 }
 h2,
 h3 {
@@ -31,7 +31,7 @@ h3 {
   font-size: 2rem;
   font-weight: 500;
   text-align: center;
-  color: #fb61cd;
+  color: #110457;
 }
 .search1 {
   display: flex;
@@ -49,30 +49,48 @@ select {
 }
 .cards {
   display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  flex-direction: column;
+
+  border: 1px solid #ffffff;
+}
+.paginado {
+  background-color: #14eb98;
+  display: flex;
+  justify-content: space-between;
+
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}
+/*       PAGINADO                 */
+.breads_cards {
   justify-content: center;
-  margin: 0 auto;
-  align-content: space-between;
+  padding-bottom: 2rem;
+  align-items: center;
+  text-align: center;
 }
 .App {
-  display: flex;
+  display: grid;
   justify-content: center;
-  color: #fb61cd;
+  color: #110457;
 }
 label {
   margin-right: 0.5rem;
   font-size: 2rem;
   font-weight: 700;
-  color: #fb61cd;
+  color: #110457;
 }
 .input-search {
   font-family: "Lato", sans-serif;
   border-radius: 0.5rem;
   text-align: center;
   font-size: 2rem;
-  color: #fb61cd;
+  color: #110457;
 }
 :placeholder-shown {
-  color: #fb61cd;
+  color: #110457;
 }
 .search {
   display: flex;
@@ -84,7 +102,7 @@ label {
   border: hidden;
   border-radius: 0.2rem;
   font-weight: 500;
-  color: #fb61cd;
+  color: #110457;
 }
 .razas {
   padding: 1rem;
@@ -105,16 +123,22 @@ label {
   justify-content: space-between;
   gap: 1rem;
 }
+.image {
+  height: 250px;
+  width: 350px;
+  border-radius: 1rem;
+}
+
 body {
-  background-image: url(./img/boxers.png);
+  background-color: #e1e1e1;
   background-size: cover;
   height: 100vh;
   max-width: 100%;
+  background-attachment: fixed;
   background-repeat: no-repeat;
 }
 @media (min-width: 768px) {
   body {
-    background-image: url(./img/boxers.png);
     background-attachment: fixed;
     background-size: auto;
     height: 100vh;

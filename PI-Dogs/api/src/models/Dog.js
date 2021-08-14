@@ -20,18 +20,15 @@ module.exports = (sequelize) => {
     },
     weight: {
       type: DataTypes.STRING,
-
       allowNull: false,
     },
     height: {
-      type: DataTypes.ENUM("imperial", "metric"),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     image: {
-      type: DataTypes.ENUM({
-        values: ["value", "another value"],
-      }),
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createInDb: {
       type: DataTypes.BOOLEAN,

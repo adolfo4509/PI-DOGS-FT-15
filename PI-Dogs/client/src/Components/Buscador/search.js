@@ -1,6 +1,18 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDogsTemp } from "../../actions/index";
 function Buscador() {
+  const dispatch = useDispatch();
+  const [temperament, setTemperament] = useState();
+  var allTemperament = useSelector((state) => state.dogsTemperament);
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(selectDogsTemp());
+  }
+  useEffect(() => {
+    dispatch(selectDogsTemp());
+  }, []);
+
   return (
     <div>
       <h2>Buscador</h2>
@@ -15,7 +27,13 @@ function Buscador() {
             placeholder="Name Dogs"
           ></input>
         </div>
-        <button className="search" type="submit">
+        <button
+          className="search"
+          type="submit"
+          onClick={(e) => {
+            handleClick(e);
+          }}
+        >
           Search
         </button>
       </form>

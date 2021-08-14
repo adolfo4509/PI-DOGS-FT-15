@@ -1,7 +1,8 @@
-import { GET_DOGS } from "../actions/index";
+import { GET_DOGS, FILTER_BY_VALUES } from "../actions/index";
 
 const initialState = {
   dogsLoaded: [],
+  dogsTemperament: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -10,6 +11,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogsLoaded: action.payload,
+      };
+    case FILTER_BY_VALUES:
+      return {
+        ...state,
+        dogsTemperament: action.payload,
       };
     default:
       return state;

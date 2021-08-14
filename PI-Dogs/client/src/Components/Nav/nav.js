@@ -8,7 +8,7 @@ function Nav() {
     <header className="App-header">
       <div>
         <img
-          id="logoHenry"
+          id="App-logo"
           src={Logo}
           width="30"
           height="30"
