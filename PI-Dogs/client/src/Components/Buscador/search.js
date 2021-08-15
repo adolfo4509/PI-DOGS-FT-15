@@ -7,7 +7,7 @@ function Buscador() {
   var allTemperament = useSelector((state) => state.dogsTemperament);
   function handleClick(e) {
     e.preventDefault();
-    dispatch(selectDogsTemp());
+    dispatch(selectDogsTemp(e));
   }
   useEffect(() => {
     dispatch(selectDogsTemp());
@@ -17,25 +17,27 @@ function Buscador() {
     <div>
       <h2>Buscador</h2>
       <form className="App">
-        <div>
-          <label className="label" htmlFor="title">
-            breeds
-          </label>
-          <input
-            className="input-search"
-            type="text"
-            placeholder="Name Dogs"
-          ></input>
-        </div>
-        <button
-          className="search"
-          type="submit"
-          onClick={(e) => {
-            handleClick(e);
-          }}
-        >
-          Search
-        </button>
+        <fieldset>
+          <div>
+            <label className="label" htmlFor="title">
+              breeds
+            </label>
+            <input
+              className="input-search"
+              type="text"
+              placeholder="Name Dogs"
+            ></input>
+          </div>
+          <button
+            className="search"
+            type="submit"
+            onClick={(e) => {
+              handleClick(e);
+            }}
+          >
+            Search
+          </button>
+        </fieldset>
       </form>
     </div>
   );

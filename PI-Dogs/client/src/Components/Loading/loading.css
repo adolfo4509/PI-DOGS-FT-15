@@ -14,7 +14,7 @@ h1 {
 h2 {
   font-family: "Lato", sans-serif;
   font-size: 3rem;
-  color: #0a0107;
+  color: #fb61cd;
   font-weight: 400;
 }
 .button {
@@ -48,8 +48,8 @@ p {
 
 .spinner {
   border: 5px solid rgba(75, 235, 160, 0.3);
-  width: 46px;
-  height: 46px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border-left-color: #ca6ca3;
   margin: 0 auto;

@@ -10,7 +10,7 @@ router.get("/temperament", async (req, res) => {
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
   );
   const temperaments = apiUrl.data.map((e) => e.temperament);
-  const filterTemperament = temperaments.join();
+
   temperaments.forEach((e) => {
     Temperament.findOrCreate({
       where: { temperament: e },

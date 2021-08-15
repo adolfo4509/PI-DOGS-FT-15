@@ -23,7 +23,7 @@ h1 {
   font-size: 3rem;
   font-family: var(--fuenteHeading);
   font-weight: 600;
-  color: #110457;
+  color: #fb61cd;
 }
 h2,
 h3 {
@@ -31,7 +31,7 @@ h3 {
   font-size: 2rem;
   font-weight: 500;
   text-align: center;
-  color: #110457;
+  color: #fb61cd;
 }
 .search1 {
   display: flex;
@@ -74,23 +74,23 @@ select {
 .App {
   display: grid;
   justify-content: center;
-  color: #110457;
+  color: #fb61cd;
 }
 label {
   margin-right: 0.5rem;
   font-size: 2rem;
   font-weight: 700;
-  color: #110457;
+  color: #fb61cd;
 }
 .input-search {
   font-family: "Lato", sans-serif;
   border-radius: 0.5rem;
   text-align: center;
   font-size: 2rem;
-  color: #110457;
+  color: #fb61cd;
 }
 :placeholder-shown {
-  color: #110457;
+  color: #fb61cd;
 }
 .search {
   display: flex;
@@ -102,7 +102,7 @@ label {
   border: hidden;
   border-radius: 0.2rem;
   font-weight: 500;
-  color: #110457;
+  color: #fb61cd;
 }
 .razas {
   padding: 1rem;

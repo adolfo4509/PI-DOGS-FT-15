@@ -30,6 +30,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    temperament: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     createInDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

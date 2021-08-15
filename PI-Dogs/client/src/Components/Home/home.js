@@ -28,7 +28,7 @@ export default function Home() {
 
   const indexOfFirtsBreads = indexOfLastBreads - breadsPerPage;
 
-  // creamos una cosntante para guardar todos las razas que se van a tener en cada pagina
+  // creamos una constante para guardar todos las razas que se van a tener en cada pagina
 
   const currentBreads = allDogs.slice(indexOfFirtsBreads, indexOfLastBreads);
 
@@ -43,12 +43,12 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function handleClick(e) {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(getDogs());
   }
   function filterHandleSTemperament(e) {
-    e.preventDefault();
-    dispatch(selectDogsTemp(e.target.value));
+    //  e.preventDefault();
+    dispatch(selectDogsTemp(e));
   }
   return (
     <div>
@@ -63,27 +63,25 @@ export default function Home() {
           Cargar de nuevo
         </button>
         <div className="select">
-          <select
-            onChange={(e) => {
-              filterHandleSTemperament(e);
-            }}
-          >
-            <option value="temperament">Temperamento</option>
-          </select>
-          <select>
-            <option value="Friendly">Breads exist</option>
-            <option value="creat">created by we</option>
-          </select>
-          <select>
-            <option value="asc">Ascendente</option>
-            <option value="des">Descendente</option>
-            <option value="weig">weight</option>
-          </select>
+          <fieldset>
+            <select onClick={filterHandleSTemperament()}>
+              <option value="temperament">Temperamento</option>
+            </select>
+            <select>
+              <option value="Friendly">Breads exist</option>
+              <option value="creat">created by we</option>
+            </select>
+            <select>
+              <option value="asc">Ascendente</option>
+              <option value="des">Descendente</option>
+              <option value="weig">weight</option>
+            </select>
 
-          <footer className="botonesnex_prev">
-            <button className="botonnext ">Preview</button>
-            <button>previous</button>
-          </footer>
+            <footer className="botonesnex_prev">
+              <button className="botonnext ">Preview</button>
+              <button>previous</button>
+            </footer>
+          </fieldset>
         </div>
       </div>
       <Paginado
