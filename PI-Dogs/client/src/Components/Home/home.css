@@ -1,3 +1,17 @@
 body {
   background-image: url(../../img/boxers.png);
 }
+.cards_breads {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+  min-width: 90%;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .cards_breads {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+}

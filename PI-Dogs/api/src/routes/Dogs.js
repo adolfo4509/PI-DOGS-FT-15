@@ -62,6 +62,7 @@ router.get("/dogs", async (req, res) => {
       : res.status(404).send("No esta el Dog, lo sentimos");
   } else {
     res.status(200).send(dogsTotal);
+    console.log("===========>Dogs necesarios", dogsTotal);
   }
 });
 
@@ -112,8 +113,9 @@ router.post("/dogs", async (req, res) => {
       temperament,
     });
 
-    let temperamentDb = await Temperament.findOne({
+    let temperamentDb = await Temperament.findAll({
       where: { temperament: temperament },
+      include: Dog,
     });
 
     dogsCreate.addTemperament(temperamentDb);
@@ -121,6 +123,7 @@ router.post("/dogs", async (req, res) => {
     res.send("successfully created dog breed");
   } catch {
     res.status(404).send("verifique los datos");
+    console.log("========>ERROR", 404);
   }
 });
 module.exports = router;

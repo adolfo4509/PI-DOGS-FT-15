@@ -72,7 +72,7 @@ fieldset {
   border-radius: 1rem;
   text-align: center;
   padding: 4rem;
-  background-color: rgb(234, 239, 240);
+  background-color: #282c34;
 }
 input {
   margin-left: 1rem;

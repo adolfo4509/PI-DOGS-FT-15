@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../Cards/card";
-import { getDogs, selectDogsTemp } from "../../actions/index";
+import {
+  getDogs,
+  selectDogsTemp,
+  filterCeate,
+  orderByName,
+} from "../../actions/index";
 import Search from "../Buscador/search";
 import Paginado from "../Paginado/paginado";
 import "./home.css";
@@ -14,6 +19,9 @@ export default function Home() {
 
   //------Creamos constantes para hacer la logica de paginado-------//
 
+  // Ordenar de forma asc y desc
+
+  const { orden, setOrden } = useState("");
   //Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -40,15 +48,28 @@ export default function Home() {
   // Nos traemos del estado los personajes cuando el componente se monta utilizando  el hook useEffect
   useEffect(() => {
     dispatch(getDogs()); //se hace un dispatch con la accion como parametro
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function handleClick(e) {
     // e.preventDefault();
     dispatch(getDogs());
   }
   function filterHandleSTemperament(e) {
-    //  e.preventDefault();
-    dispatch(selectDogsTemp(e));
+    //e.preventDefault();
+    dispatch(selectDogsTemp(e.target.value));
+    //console.log("=======>boton", selectDogsTemp());
+  }
+
+  function handleFilterCreated(e) {
+    dispatch(filterCeate(e.target.value));
+  }
+
+  //para ordenar asc o desc
+
+  function handleSort(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`);
   }
   return (
     <div>
@@ -64,23 +85,21 @@ export default function Home() {
         </button>
         <div className="select">
           <fieldset>
-            <select onClick={filterHandleSTemperament()}>
-              <option value="temperament">Temperamento</option>
+            <select onChange={(e) => filterHandleSTemperament(e)}>
+              <option value="All">Todos</option>
+              <option value="temperament">Temperament</option>
+              <option value="api">Todos</option>
             </select>
-            <select>
-              <option value="Friendly">Breads exist</option>
-              <option value="creat">created by we</option>
+            <select onChange={(e) => handleFilterCreated(e)}>
+              <option value="All">Todos</option>
+              <option value="created">creados</option>
+              <option value="api">Existente</option>
             </select>
-            <select>
+            <select onChange={(e) => handleSort(e)}>
               <option value="asc">Ascendente</option>
               <option value="des">Descendente</option>
               <option value="weig">weight</option>
             </select>
-
-            <footer className="botonesnex_prev">
-              <button className="botonnext ">Preview</button>
-              <button>previous</button>
-            </footer>
           </fieldset>
         </div>
       </div>
@@ -89,7 +108,7 @@ export default function Home() {
         allDogs={allDogs.length}
         paginado={paginado}
       />
-      <div>
+      <div className="cards_breads">
         {currentBreads &&
           currentBreads.map((d) => {
             return (

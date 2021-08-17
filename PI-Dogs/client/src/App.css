@@ -42,6 +42,7 @@ h3 {
   gap: 1rem;
 }
 .cargar {
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 select {
@@ -72,7 +73,6 @@ select {
   text-align: center;
 }
 .App {
-  display: grid;
   justify-content: center;
   color: #fb61cd;
 }

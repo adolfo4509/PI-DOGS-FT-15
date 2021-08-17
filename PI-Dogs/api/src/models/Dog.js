@@ -25,15 +25,16 @@ module.exports = (sequelize) => {
     height: {
       type: DataTypes.STRING,
       allowNull: false,
+      allowNull: true,
+    },
+    temperament: {
+      type: DataTypes.TEXT,
     },
     image: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    temperament: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+
     createInDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

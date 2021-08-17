@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
     temperament: {
       type: DataTypes.TEXT,
       allowNull: false,
+      unique: true,
     },
   });
 };
