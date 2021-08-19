@@ -15,3 +15,16 @@ body {
     grid-gap: 10px;
   }
 }
+.select {
+  border-radius: 1rem;
+  background-color: #282c34;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem;
+}
+.ordenar {
+  padding: 2rem;
+
+  font-size: 1.5rem;
+}

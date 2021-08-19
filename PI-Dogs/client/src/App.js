@@ -1,6 +1,6 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import DogsCreate from "./Components/BreadsCreate/breadsCreate";
+import DogsCreate from "./Components/BreadsCreate/dogsCreate";
 import Card from "./Components/Cards/card";
 import Home from "./Components/Home/home";
 import Loading from "./Components/Loading/loading";

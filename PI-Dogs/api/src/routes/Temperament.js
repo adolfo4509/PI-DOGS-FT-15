@@ -11,29 +11,29 @@ router.get("/temperament", async (req, res) => {
       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
     );
     const temperaments = apiUrl.data.map((e) => e.temperament);
-    const filtrar = [temperaments.join("")];
-    // console.log("=====>", filtrar);
-    const result = filtrar.reduce((acc, item) => {
-      if (!acc.includes(item)) {
-        acc.push(item);
+    let flitrados = temperaments.map(
+      (e) => e && e.split(",").map((e) => e.trim())
+    );
+    let temp = [];
+    flitrados.map((e) => {
+      if (e) {
+        temp = [...temp, ...e];
       }
-      return acc;
-    }, []);
-    result.forEach((e) => {
+    });
+
+    temp = [...new Set(temp)].sort();
+
+    temp.map((e) => {
       Temperament.findOrCreate({
         where: { temperament: e },
-        include: Dog,
       });
     });
-    console.log(
-      "ESTAMOS ACCEDIENDO A LA INFORMACION-------->DOS VECES",
-      result
-    );
+
     const allTemperament = await Temperament.findAll();
 
-    res.status(200).json(allTemperament);
+    res.status(200).send(allTemperament);
   } catch (error) {
-    res.sendStatus(404).send("Temperamento no encontardo");
+    res.sendStatus(404).send("Temperamento no encontrado");
   }
 });
 

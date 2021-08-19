@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
-const { v4: uuidv4 } = require("uuid");
+
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Dog, Temperament } = require("../db.js");
@@ -11,6 +11,7 @@ const getAppInfo = async () => {
   const apiUrl = await axios.get(
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
   );
+
   const apiInfo = await apiUrl.data.map((e) => {
     return {
       id: e.id,
@@ -18,12 +19,13 @@ const getAppInfo = async () => {
       life_span: e.life_span,
       weight: e.weight,
       height: e.height,
-      image: e.image,
+      image: e.image.url,
       temperament: e.temperament,
     };
   });
   return apiInfo;
 };
+
 const getDbInfo = async () => {
   return await Dog.findAll({
     include: {
@@ -35,12 +37,16 @@ const getDbInfo = async () => {
     },
   });
 };
+
 const getAllInfo = async () => {
   const apiInfo = await getAppInfo();
   const dbInfo = await getDbInfo();
   const totalApi = apiInfo.concat(dbInfo);
+
   return totalApi;
+  clg;
 };
+
 /*GET /dogs:
 Obtener un listado de las razas de perro
 Debe devolver solo los datos necesarios para la ruta principal
@@ -60,9 +66,9 @@ router.get("/dogs", async (req, res) => {
     dogName.length
       ? res.status(200).send(dogName)
       : res.status(404).send("No esta el Dog, lo sentimos");
+    console.log("==========>", dogName);
   } else {
     res.status(200).send(dogsTotal);
-    console.log("===========>Dogs necesarios", dogsTotal);
   }
 });
 
@@ -103,27 +109,23 @@ router.post("/dogs", async (req, res) => {
       req.body;
 
     const dogsCreate = await Dog.create({
-      id: uuidv4(),
       name,
       height,
       weight,
       life_span,
       image,
       createdInDb,
-      temperament,
     });
 
     let temperamentDb = await Temperament.findAll({
       where: { temperament: temperament },
-      include: Dog,
     });
-
+    console.log(temperamentDb);
     dogsCreate.addTemperament(temperamentDb);
-    console.log("================>", dogsCreate);
-    res.send("successfully created dog breed");
+
+    res.send(temperamentDb);
   } catch {
     res.status(404).send("verifique los datos");
-    console.log("========>ERROR", 404);
   }
 });
 module.exports = router;

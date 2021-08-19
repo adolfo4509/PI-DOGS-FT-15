@@ -18,6 +18,7 @@ h2 {
   font-weight: 400;
 }
 .button {
+  margin: 2rem;
   font-size: 2rem;
   border-radius: 0.5rem;
   border: hidden;

@@ -12,8 +12,6 @@ export default function Paginado({ breadsPerPage, allDogs, paginado }) {
       <ul className="paginado">
         {pageNumbers &&
           pageNumbers.map((number) => (
-            // eslint-disable-next-line react/jsx-no-comment-textnodes
-
             <Link className="App-link" onClick={() => paginado(number)}>
               {number}
             </Link>

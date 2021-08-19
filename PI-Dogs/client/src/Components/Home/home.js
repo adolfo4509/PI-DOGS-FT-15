@@ -4,14 +4,17 @@ import Card from "../Cards/card";
 import {
   getDogs,
   selectDogsTemp,
-  filterCeate,
+  filterCreate,
   orderByName,
+  llevarBreadsByTemperament,
 } from "../../actions/index";
 import Search from "../Buscador/search";
 import Paginado from "../Paginado/paginado";
 import "./home.css";
 
-export default function Home() {
+export default function Home({ temperament }) {
+  var allTemperament = useSelector((state) => state.allTemperament);
+
   //utilizamos la constante dispatch para ir actualizando las acciones
   const dispatch = useDispatch();
   //creamos una constante xxx para utilizar el hook useSelector para traernos todo lo que esta en el estado de dogs
@@ -19,14 +22,17 @@ export default function Home() {
 
   //------Creamos constantes para hacer la logica de paginado-------//
 
+  const [input, setInput] = useState("");
+
   // Ordenar de forma asc y desc
 
-  const { orden, setOrden } = useState("");
+  const [orden, setOrden] = useState("");
+
   //Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
 
   //Razas por pagina
-  const [breadsPerPage, setBreadsPage] = useState(9);
+  const [breadsPerPage] = useState(9);
 
   //indece del ultimo personaje
 
@@ -48,32 +54,42 @@ export default function Home() {
   // Nos traemos del estado los personajes cuando el componente se monta utilizando  el hook useEffect
   useEffect(() => {
     dispatch(getDogs()); //se hace un dispatch con la accion como parametro
+  }, [dispatch]);
+  //console.log(getDogs());
+  useEffect(() => {
+    dispatch(selectDogsTemp());
   }, []);
   function handleClick(e) {
-    // e.preventDefault();
-    dispatch(getDogs());
-  }
-  function filterHandleSTemperament(e) {
-    //e.preventDefault();
-    dispatch(selectDogsTemp(e.target.value));
-    //console.log("=======>boton", selectDogsTemp());
+    e.preventDefault();
+    dispatch(getDogs(e.target.value));
   }
 
   function handleFilterCreated(e) {
-    dispatch(filterCeate(e.target.value));
+    e.preventDefault();
+    dispatch(filterCreate(e.target.value));
   }
 
+  function handleClickr(e) {
+    //e.preventDefault();
+    setOrden(e.target.value);
+    dispatch(llevarBreadsByTemperament(e.target.value));
+  }
   //para ordenar asc o desc
 
   function handleSort(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setOrden(e.target.value);
+    //console.log(orderByName());
   }
   return (
     <div>
-      <Search />
+      <Search
+        name={input.name}
+        temperament={input.temperament}
+        image={input.image}
+      />
       <div className="filtrar">
         <button
           className="cargar"
@@ -84,23 +100,44 @@ export default function Home() {
           Cargar de nuevo
         </button>
         <div className="select">
-          <fieldset>
-            <select onChange={(e) => filterHandleSTemperament(e)}>
-              <option value="All">Todos</option>
-              <option value="temperament">Temperament</option>
-              <option value="api">Todos</option>
-            </select>
+          <div>
+            <h3>Filtrar por los temperamentos</h3>
+            <div>
+              <select className="select-css" onChange={(e) => handleClickr(e)}>
+                <option>Selecciona una opción</option>
+                {allTemperament.map(({ ID, temperament }) => {
+                  return (
+                    <option key={ID} value={temperament}>
+                      {temperament}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+          <div>
+            <h3>Filtrar por Razas</h3>
             <select onChange={(e) => handleFilterCreated(e)}>
               <option value="All">Todos</option>
               <option value="created">creados</option>
               <option value="api">Existente</option>
             </select>
+          </div>
+          <div>
+            <div></div>
+            <h3>Filtrar en Orden </h3>
             <select onChange={(e) => handleSort(e)}>
-              <option value="asc">Ascendente</option>
-              <option value="des">Descendente</option>
-              <option value="weig">weight</option>
+              <option className="ordenar" value="asc">
+                Ascendente
+              </option>
+              <option className="ordenar" value="des">
+                Descendente
+              </option>
+              <option className="ordenar" value="weig">
+                weight
+              </option>
             </select>
-          </fieldset>
+          </div>
         </div>
       </div>
       <Paginado
@@ -115,7 +152,7 @@ export default function Home() {
               <Card
                 name={d.name}
                 temperament={d.temperament}
-                image={d.image.url}
+                image={d.image}
               ></Card>
             );
           })}
