@@ -13,8 +13,8 @@ const {
 } = process.env;
 
 const sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize(DA_NEON, {
+  process.env.DATABASE_URL === "production"
+    ? new Sequelize(DATABASE_URL, {
         logging: false,
         native: false,
         dialectOptions: {
