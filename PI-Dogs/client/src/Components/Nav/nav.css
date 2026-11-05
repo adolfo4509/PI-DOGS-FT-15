@@ -1,12 +1,80 @@
-h1 {
-  font-size: 1.5rem;
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  width: 100%;
+  padding: 1.2rem clamp(1.2rem, 4vw, 3.2rem);
 }
-h3 {
-  font-size: 1.5rem;
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  color: #fb61cd;
+  text-decoration: none;
 }
-@media (min-width: 768px) {
-  h1,
-  h3 {
-    font-size: 3rem;
+
+.nav-logo {
+  display: block;
+  width: clamp(3.2rem, 6vw, 5rem);
+  height: clamp(3.2rem, 6vw, 5rem);
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.nav-title {
+  font-family: var(--fuenteHeading, "Lato", sans-serif);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: clamp(0.8rem, 2vw, 2rem);
+}
+
+.site-nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  padding: 0.6rem 1rem;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  text-align: center;
+}
+
+.site-nav-link:focus-visible,
+.nav-brand:focus-visible {
+  border-radius: 0.4rem;
+  outline: 3px solid #fb61cd;
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem;
+  }
+
+  .nav-brand {
+    justify-content: center;
+  }
+
+  .site-nav {
+    justify-content: center;
+    width: 100%;
+    gap: 0.4rem;
+  }
+
+  .site-nav-link {
+    min-height: 4rem;
+    padding: 0.5rem 0.8rem;
   }
 }

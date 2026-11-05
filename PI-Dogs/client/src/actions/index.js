@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { DOGS_BREADS_URL, TEMPERAMENT_URL } from "../constantes/constants";
+import { DOGS_BREADS_URL, TEMPERAMENT_URL ,DOGS_BREADS_URL_NAME,DOGS_CREATE_URL} from "../constantes/constants";
 export const GET_DOGS = "GET_DOGS";
 export const FILTER_BY_TEMPERAMENTS = "FILTER_BY_TEMPERAMENTS";
 export const ADD_DOGS = "ADD_DOGS";
@@ -24,7 +24,7 @@ export function getDogs() {
 export const getNameBreadsDogs = (name) => {
   return async function (dispatch) {
     try {
-      var json = await axios.get(DOGS_BREADS_URL + name);
+      var json = await axios.get(DOGS_BREADS_URL );
       return dispatch({
         type: GET_NAME_BREADS_DOGS,
         payload: json.data,
@@ -35,10 +35,16 @@ export const getNameBreadsDogs = (name) => {
   };
 };
 export const addBreads = (payload) => {
-  // payload = { ...payload };
-  return {
-    type: ADD_DOGS,
-    payload: payload,
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(DOGS_CREATE_URL, payload);
+      dispatch({
+        type: ADD_DOGS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 export function selectDogsTemp() {
@@ -67,12 +73,22 @@ export function llevarBreadsByTemperament(payload) {
   };
 }
 export function searchDogs(name) {
-  return function (dispatch) {
-    return axios.get(DOGS_BREADS_URL + name).then((dogs) => {
-      dispatch({
+ 
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(DOGS_BREADS_URL_NAME,
+        {
+        params: {
+          name,
+        },
+      }
+      );
+      return dispatch({
         type: SEARCH_DOGS,
-        payload: dogs.data,
+        payload: json.data,
       });
-    });
-  };
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

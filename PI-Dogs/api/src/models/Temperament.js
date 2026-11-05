@@ -4,6 +4,11 @@ const { DataTypes, UUID } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   return sequelize.define("temperament", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     temperament: {
       type: DataTypes.STRING,
       allowNull: false,

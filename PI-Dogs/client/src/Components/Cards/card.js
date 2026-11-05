@@ -2,6 +2,7 @@ import React from "react";
 import "./cards.css";
 
 export default function Card({ name, image, temperament }) {
+ 
   return (
     <div className="breads_cards">
       <h4>Raza: {name}</h4>

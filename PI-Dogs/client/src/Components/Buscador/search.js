@@ -1,49 +1,43 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { searchDogs } from "../../actions/index";
+import { searchDogs,getDogs } from "../../actions/index";
 
 import "./search.css";
 
-function Buscador({ name, temperament, image }) {
+function Buscador({ onSearch }) {
   const dispatch = useDispatch();
-  const [namer, setNamer] = useState(name, temperament, image);
-
-  useEffect(() => {
-    dispatch(searchDogs()); //se hace un dispatch con la accion como parametro
-  }, []);
+  const [namer, setNamer] = useState("");
+  
+ 
   const handleInputChange = (e) => {
-    e.preventDefault();
-    dispatch(searchDogs());
+   
+    onSearch();
     setNamer(e.target.value);
-
-    //console.log("========>");
+    if (e.target.value.trim() !== "") {
+      dispatch(searchDogs(e.target.value));
+    }else {
+      dispatch(getDogs());
+     dispatch(searchDogs(e.target.value));
+    }
+    
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // console.log("===>", name);
-  };
+ 
   return (
     <div>
       <h2>Buscador</h2>
-      <form onChange={(e) => handleInputChange(e)}>
+      <form>
         <fieldset>
           <div className="buscar">
             <input
               className="input-search"
               type="text"
-              value={name}
-              placeholder="Name Dogs"
+              value={namer}
+              placeholder="Buscar Dogs"
+              onChange={(e) => handleInputChange(e)}
             ></input>
 
-            <button
-              className="button"
-              type="submit"
-              onSubmit={(e) => handleSubmit(e)}
-            >
-              Search
-            </button>
+            
           </div>
         </fieldset>
       </form>

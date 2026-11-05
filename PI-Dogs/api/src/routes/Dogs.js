@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
-
+const { Op } = require("sequelize");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Dog, Temperament } = require("../db.js");
@@ -27,24 +27,21 @@ const getAppInfo = async () => {
 };
 
 const getDbInfo = async () => {
-  return await Dog.findAll({
+  const dbInfo = await Dog.findAll({
     include: {
       model: Temperament,
       attributes: ["temperament"],
-      through: {
-        attributes: [],
-      },
+
     },
   });
+  return dbInfo
 };
 
 const getAllInfo = async () => {
   const apiInfo = await getAppInfo();
   const dbInfo = await getDbInfo();
   const totalApi = apiInfo.concat(dbInfo);
-
   return totalApi;
-  clg;
 };
 
 /*GET /dogs:
@@ -56,22 +53,66 @@ Si no existe ninguna raza de perro mostrar un mensaje adecuado
 
 */
 router.get("/dogs", async (req, res) => {
-  const { name } = req.query;
+   const { name } = req.query;
   const dogsTotal = await getAllInfo();
 
   if (name) {
+    
     let dogName = await dogsTotal.filter((e) =>
-      e.name.toLowerCase().includes(name.toLowerCase())
-    );
-    dogName.length
-      ? res.status(200).send(dogName)
-      : res.status(404).send("No esta el Dog, lo sentimos");
-    console.log("==========>", dogName);
-  } else {
-    res.status(200).send(dogsTotal);
-  }
+      e.name.toLowerCase().includes(name.toLowerCase()))
+    const response = {
+      data: dogName,
+      message: "Lista de perros obtenida correctamente en buscador",
+    };
+    res.status(200).send(response); 
+    }else{
+    
+     const response = {
+      data: dogsTotal,
+      message: "Lista de perros obtenida correctamente",
+    };
+    res.status(200).send(response);
+    }
 });
 
+router.get("/searchDog", async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    const dogsTotal = await getAllInfo();
+
+    // Si no viene nombre, devuelve todos
+    if (!name || name.trim() === "") {
+      return res.status(200).json({
+        data: dogsTotal,
+        message: "Lista completa de perros",
+      });
+    }
+
+    // Buscar coincidencias parciales
+    const dogsFound = dogsTotal.filter((dog) =>
+      dog.name.toLowerCase().includes(name.toLowerCase().trim())
+    );
+
+    if (dogsFound.length === 0) {
+      return res.status(404).json({
+        data: [],
+        message: "No se encontraron perros",
+      });
+    }
+
+    return res.status(200).json({
+      data: dogsFound,
+      message: "Perros encontrados correctamente",
+    });
+  } catch (error) {
+    console.error("Error searchDog:", error);
+
+    return res.status(500).json({
+      message: "Error interno del servidor",
+    });
+  }
+});
 /*
 [ ] GET /dogs/{idRaza}:
 Obtener el detalle de una raza de perro en particular
@@ -103,7 +144,7 @@ Crea una raza de perro en la base de datos
          Peso 
          Años de vida 
 */
-router.post("/dogs", async (req, res) => {
+router.post("/crearDog", async (req, res) => {
   try {
     const { name, height, weight, life_span, temperament, image, createdInDb } =
       req.body;
@@ -116,15 +157,33 @@ router.post("/dogs", async (req, res) => {
       image,
       createdInDb,
     });
+    const temperamentArray = temperament
+      .split(",")
+      .map((t) => {
+        t = t.trim();
+        return t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+      });
 
     let temperamentDb = await Temperament.findAll({
-      where: { temperament: temperament },
+      where: {
+        temperament: {
+          [Op.in]: temperamentArray,
+        }
+      },
     });
-    console.log(temperamentDb);
-    dogsCreate.addTemperament(temperamentDb);
+   
+    await dogsCreate.addTemperament(temperamentDb);
+    const dogCompleto = await Dog.findByPk(dogsCreate.id, {
+      include: [{
+        model: Temperament,
+         through: {
+          attributes: []
+        }
+      }]
+    });
+    res.status(201).json(dogCompleto);
+  } catch (error) {
 
-    res.send(temperamentDb);
-  } catch {
     res.status(404).send("verifique los datos");
   }
 });

@@ -5,26 +5,23 @@ import Logo from "../../img/logoHenry.png";
 
 function Nav() {
   return (
-    <header className="App-header">
-      <div>
+    <header className="App-header site-header">
+      <Link className="nav-brand" exact to="/" aria-label="Henry Dog breeds, inicio">
         <img
-          id="App-logo"
           src={Logo}
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
+          className="nav-logo"
           alt="Logo-Henry"
         />
-      </div>
-      <h1>Henry Dog breeds</h1>
-      <div className="navBar">
-        <Link className="App-link" exact to="/">
-          <h3>Home</h3>
+        <span className="nav-title">Henry Dog breeds</span>
+      </Link>
+      <nav className="navBar site-nav" aria-label="Navegación principal">
+        <Link className="App-link site-nav-link" exact to="/home">
+          Home
         </Link>
-        <Link className="App-link" to="/dogs">
-          <h3>Create Breads</h3>
+        <Link className="App-link site-nav-link" to="/dogs">
+          Create Breads
         </Link>
-      </div>
+      </nav>
     </header>
   );
 }

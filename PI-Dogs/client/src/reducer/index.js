@@ -11,9 +11,17 @@ import {
 
 const initialState = {
   dogsLoaded: [],
+  allDogs: [],
   allTemperament: [],
   createBreadsDog: [],
+  dogsByName: [],
 };
+
+const getDogs = (dogs) =>
+  Array.isArray(dogs) ? dogs : Array.isArray(dogs?.data) ? dogs.data : [];
+
+const withDogs = (response, dogs) =>
+  Array.isArray(response) ? dogs : { ...response, data: dogs };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -21,6 +29,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogsLoaded: action.payload,
+        allDogs: action.payload,
       };
     case ADD_DOGS:
       return {
@@ -35,39 +44,43 @@ function rootReducer(state = initialState, action) {
         allTemperament: action.payload,
       };
     case FILTER_CREATE:
-      const allTemperament2 = state.dogsLoaded;
+      const allTemperament2 = getDogs(state.allDogs);
       const createdFilter =
         action.payload === "created"
           ? allTemperament2.filter((el) => el.createdInDb)
           : allTemperament2.filter((el) => !el.createdInDb);
       return {
         ...state,
-        dogsLoaded: action.payload === "All" ? state.dogsLoaded : createdFilter,
+        dogsLoaded: withDogs(
+          state.allDogs,
+          action.payload === "All" ? allTemperament2 : createdFilter
+        ),
       };
     case ORDER_BY_NAME:
-      let sortArr =
+      const dogsToSort = getDogs(state.dogsLoaded).slice();
+      const sortArr =
         action.payload === "asc"
-          ? state.dogsLoaded.sort((a, b) => {
-              if (a.name > b.name) {
-                return 1;
-              } else if (b.name > a.name) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.dogsLoaded.sort((a, b) => {
-              if (a.name > b.name) {
-                return -1;
-              }
-              if (b.name > a.name) {
-                return 1;
-              }
-              return 0;
-            });
+          ? dogsToSort.sort((a, b) => {
+            if (a.name > b.name) {
+              return 1;
+            } else if (b.name > a.name) {
+              return -1;
+            }
+            return 0;
+          })
+          : dogsToSort.sort((a, b) => {
+            if (a.name > b.name) {
+              return -1;
+            }
+            if (b.name > a.name) {
+              return 1;
+            }
+            return 0;
+          });
 
       return {
         ...state,
-        dogsLoaded: sortArr,
+        dogsLoaded: withDogs(state.dogsLoaded, sortArr),
       };
     case GET_NAME_BREADS_DOGS:
       return {
@@ -75,20 +88,22 @@ function rootReducer(state = initialState, action) {
         allTemperament: action.payload,
       };
     case FILTER_BY_TEMPERAMENTNEO:
-      let filterT = state.dogsLoaded.filter((e) =>
-        [e.temperament].join(" ").includes(action.payload)
-      );
-      // console.log("=====", filterT);
+      const dogsByTemperament = getDogs(state.allDogs);
+      const filterT =
+        action.payload === "All"
+          ? dogsByTemperament
+          : dogsByTemperament.filter((e) =>
+            [e.temperament].join(" ").includes(action.payload)
+          );
       return {
         ...state,
-        dogsLoaded: filterT,
+        dogsLoaded: withDogs(state.allDogs, filterT),
       };
     case SEARCH_DOGS:
-      let search = state.dogsLoaded.map((e) =>
-        [e.name, e.temperament, e.image].includes(action.payload)
-      );
-
-      return { ...state, dogsLoaded: search };
+      return {
+        ...state,
+        dogsByName: action.payload
+      };
     default:
       return state;
   }

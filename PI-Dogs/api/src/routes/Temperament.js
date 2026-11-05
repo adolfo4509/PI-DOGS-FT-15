@@ -23,11 +23,13 @@ router.get("/temperament", async (req, res) => {
 
     temp = [...new Set(temp)].sort();
 
-    temp.map((e) => {
-      Temperament.findOrCreate({
-        where: { temperament: e },
-      });
-    });
+    await Promise.all(
+      temp.map((e) =>
+        Temperament.findOrCreate({
+          where: { temperament: e },
+        })
+      )
+    );
 
     const allTemperament = await Temperament.findAll();
 

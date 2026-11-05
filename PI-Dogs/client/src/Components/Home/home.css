@@ -23,8 +23,62 @@ body {
   align-items: center;
   padding: 4rem;
 }
+.filtrar {
+  width: min(100% - 2rem, 120rem);
+  margin: 0 auto;
+}
+.cargar {
+  min-height: 4rem;
+  padding: 0.8rem 1.6rem;
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  padding: clamp(1.2rem, 4vw, 4rem);
+}
+.filter-option {
+  min-width: 0;
+}
+.filter-title {
+  margin-top: 0;
+}
+.filter-control {
+  display: block;
+  width: 100%;
+  min-height: 4.4rem;
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+}
 .ordenar {
   padding: 2rem;
 
   font-size: 1.5rem;
+}
+@media (max-width: 767px) {
+  .filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+  }
+}
+@media (max-width: 520px) {
+  .filtrar {
+    width: calc(100% - 2rem);
+  }
+  .filter-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 1.6rem;
+  }
+  .filter-title {
+    margin-bottom: 0.8rem;
+    text-align: left;
+  }
+  .cargar {
+    width: 100%;
+  }
 }
