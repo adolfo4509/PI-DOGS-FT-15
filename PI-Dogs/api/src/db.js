@@ -15,7 +15,6 @@ const isProduction = process.env.NODE_ENV === "production";
 const sequelize =
   isProduction ? new Sequelize(DATABASE_URL, {
     logging: false,
-    native: false,
     dialectOptions: {
       ssl: {
         require: true,
