@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
   "author": "Adolfo Leon",
   "license": "ISC",
-  
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
