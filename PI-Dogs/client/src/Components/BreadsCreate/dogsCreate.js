@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch ,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBreads, getDogs } from "../../actions";
 import "./breads.css";
 
 export default function DogsCreate() {
   const dispatch = useDispatch();
   var allTemperament = useSelector((state) => state.allTemperament);
-  console.log("allTemperament", allTemperament);
+
   const [input, setInput] = useState({
     name: "",
-    height: {imperial: "", metric: "" },
-    weight: {imperial: "", metric: "" },
+    height: { imperial: "", metric: "" },
+    weight: { imperial: "", metric: "" },
     life_span: "",
     image: "",
     temperament: "",
   });
-  console.log(input);
+
   useEffect(() => {
     dispatch(getDogs()); //se hace un dispatch con la accion como parametro
   }, [dispatch]);
   const handleChange = (e) => {
     e.preventDefault();
-   const { name, value } = e.target;
-  
+    const { name, value } = e.target;
+
     if (name === "temperament") {
       const selectedIds = Array.from(e.target.selectedOptions, (option) => option.innerHTML);
-      console.log("selectedIds", selectedIds[0]);
+
       setInput((prevInput) => ({
         ...prevInput,
         temperament: selectedIds[0] ? [...prevInput.temperament, selectedIds[0]] : prevInput.temperament,
@@ -41,16 +41,17 @@ export default function DogsCreate() {
     }
   };
   const handleSubmit = (e) => {
-    
-   
-    const dataRequest = {name:input.name,
+
+
+    const dataRequest = {
+      name: input.name,
       height: input.height,
-      weight:input.weight,
+      weight: input.weight,
       life_span: input.life_span,
-      image : input.image,
-      temperament:input.temperament.join(", ")
+      image: input.image,
+      temperament: input.temperament.join(", ")
     }
-    console.log("handleSubmit", dataRequest);
+
     e.preventDefault();
     dispatch(addBreads(dataRequest));
   };
@@ -114,7 +115,7 @@ export default function DogsCreate() {
           <input
             type="text"
             value={input.image}
-             onChange={handleChange}
+            onChange={handleChange}
             name="image"
           />
 
