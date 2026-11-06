@@ -13,6 +13,7 @@ export const SEARCH_DOGS = "SEARCH_DOGS";
 export function getDogs() {
   return function (dispatch) {
     return axios.get(DOGS_BREADS_URL).then((dogs) => {
+      console.log("RESPUESTA DOGS", dogs);
       dispatch({
         type: GET_DOGS,
         payload: dogs.data,
@@ -50,6 +51,7 @@ export const addBreads = (payload) => {
 export function selectDogsTemp() {
   return function (dispatch) {
     return axios.get(TEMPERAMENT_URL).then((dogs) => {
+       console.log("RESPUESTA TEMPERAMENT", dogs);
       dispatch({
         type: FILTER_BY_TEMPERAMENTS,
         payload: dogs.data,
