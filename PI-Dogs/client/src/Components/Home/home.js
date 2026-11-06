@@ -4,10 +4,9 @@ import Card from "../Cards/card";
 import {
   getDogs,
   selectDogsTemp,
-  filterCreate,
   orderByName,
   llevarBreadsByTemperament,
-  searchDogs
+  
 } from "../../actions/index";
 import Search from "../Buscador/search";
 import Paginado from "../Paginado/paginado";
@@ -24,8 +23,7 @@ export default function Home({ temperament }) {
 
   // Ordenar de forma asc y desc
 
-  const [orden, setOrden] = useState("");
-
+  
   //Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -66,7 +64,7 @@ const mostrarUno = creadosDb.length > 0 ? creadosDb : allDogs.data
  
   useEffect(() => {
     dispatch(selectDogsTemp());
-  }, []);
+  }, [dispatch]);
   function handleClick(e) {
     e.preventDefault();
     setCurrentPage(1);
