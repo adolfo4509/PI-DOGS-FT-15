@@ -9,28 +9,27 @@ const {
   DB_HOST,
   DB_PORT,
   DB_NAME,
-  DA_NEON,
+  DATABASE_URL,
 } = process.env;
-
+const isProduction = process.env.NODE_ENV === "production";
 const sequelize =
-  process.env.DATABASE_URL === "production"
-    ? new Sequelize(DATABASE_URL, {
+  isProduction ? new Sequelize(DATABASE_URL, {
+    logging: false,
+    native: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  })
+    : new Sequelize(
+      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+      {
         logging: false,
         native: false,
-        dialectOptions: {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-        },
-      })
-    : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-        {
-          logging: false,
-          native: false,
-        }
-      );
+      }
+    );
 
 
 
