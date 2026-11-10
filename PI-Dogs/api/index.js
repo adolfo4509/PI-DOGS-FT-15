@@ -18,17 +18,16 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 require("dotenv").config();
-const { API_KEY } = process.env;
+
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 
-// Syncing all the models at once.
-
+const PORT = process.env.PORT || 3001;
 
 conn.sync({ force: false }).then(() => {
   console.log("✅ Base de datos conectada");
 
-  server.listen(3001, () => {
-    console.log("✅ Servidor escuchando en puerto 3001");
+  server.listen(PORT, () => {
+    console.log(`✅ Servidor escuchando en puerto ${PORT}`);
   });
 });
